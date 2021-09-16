@@ -770,8 +770,8 @@ BOOST_AUTO_TEST_CASE(errorStorage)
     auto f2 = p2.get_future();
     m_ledger->asyncCommitBlock(
         newBlock->blockHeader(), [=, &p2](Error::Ptr _error, LedgerConfig::Ptr _config) {
-            BOOST_CHECK(_error != nullptr);
-            BOOST_CHECK(_config == nullptr);
+            BOOST_CHECK(_error == nullptr);
+            BOOST_CHECK(_config != nullptr);
             p2.set_value(true);
         });
     BOOST_CHECK_EQUAL(f2.get(), true);
