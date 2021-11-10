@@ -62,7 +62,7 @@ public:
         std::function<void(Error::Ptr, bcos::protocol::BlockNumber)> _onGetBlock) override;
 
     void asyncGetBlockHashByNumber(bcos::protocol::BlockNumber _blockNumber,
-        std::function<void(Error::Ptr, const bcos::crypto::HashType&)> _onGetBlock) override;
+        std::function<void(Error::Ptr, bcos::crypto::HashType)> _onGetBlock) override;
 
     void asyncGetBlockNumberByHash(const crypto::HashType& _blockHash,
         std::function<void(Error::Ptr, bcos::protocol::BlockNumber)> _onGetBlock) override;
@@ -121,9 +121,10 @@ private:
         std::function<void(Error::Ptr&&, std::optional<bcos::storage::Entry>&&)> callback);
 
     void getTxProof(const crypto::HashType& _txHash,
-        std::function<void(Error::Ptr, MerkleProofPtr)> _onGetProof);
+        std::function<void(Error::Ptr&&, MerkleProofPtr&&)> _onGetProof);
+
     void getReceiptProof(protocol::TransactionReceipt::Ptr _receipt,
-        std::function<void(Error::Ptr, MerkleProofPtr)> _onGetProof);
+        std::function<void(Error::Ptr&&, MerkleProofPtr&&)> _onGetProof);
 
     void createFileSystemTables();
     void recursiveBuildDir(const std::string& _absoluteDir);
